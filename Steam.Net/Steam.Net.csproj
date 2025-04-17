@@ -5,7 +5,7 @@
         <LangVersion>preview</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>Steam.NET</AssemblyName>
+        <AssemblyName>Steam.Net</AssemblyName>
         <RootNamespace>Steam</RootNamespace>
     </PropertyGroup>
 

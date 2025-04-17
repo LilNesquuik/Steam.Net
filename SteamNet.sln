@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamNet", "SteamNet\SteamNet.csproj", "{1F654CD4-992D-4D9A-BE38-AF7703599CD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steam.Net", "Steam.Net\Steam.Net.csproj", "{1F654CD4-992D-4D9A-BE38-AF7703599CD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
