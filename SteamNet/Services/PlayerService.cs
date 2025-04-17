@@ -18,7 +18,7 @@ public class PlayerService
         if (string.IsNullOrWhiteSpace(steamId))
             throw new ArgumentException("Steam ID cannot be null or empty.", nameof(steamId));
         
-        string url = $"{SteamConstants.Endpoint.GetOwnedGames}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamId}={steamId}";
+        string url = $"{SteamConstants.Endpoints.GetOwnedGames}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamId}={steamId}";
         HttpResponseMessage response = await _client.HttpClient.GetAsync(url);
         
         if (!response.IsSuccessStatusCode)
@@ -27,8 +27,8 @@ public class PlayerService
         using var payload = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
         
         return payload.RootElement
-            .GetProperty(SteamConstants.Namespace.Response)
-            .GetProperty(SteamConstants.Namespace.Games)
+            .GetProperty(SteamConstants.Namespaces.Response)
+            .GetProperty(SteamConstants.Namespaces.Games)
             .Deserialize<IEnumerable<Game>>() ?? throw new Exception("Failed to deserialize owned games.");
     }
     
@@ -37,7 +37,7 @@ public class PlayerService
         if (string.IsNullOrWhiteSpace(steamId))
             throw new ArgumentException("Steam ID cannot be null or empty.", nameof(steamId));
         
-        string url = $"{SteamConstants.Endpoint.GetRecentlyPlayedGames}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamId}={steamId}";
+        string url = $"{SteamConstants.Endpoints.GetRecentlyPlayedGames}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamId}={steamId}";
         HttpResponseMessage response = await _client.HttpClient.GetAsync(url);
         
         if (!response.IsSuccessStatusCode)
@@ -46,8 +46,8 @@ public class PlayerService
         using var payload = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
         
         return payload.RootElement
-            .GetProperty(SteamConstants.Namespace.Response)
-            .GetProperty(SteamConstants.Namespace.Games)
+            .GetProperty(SteamConstants.Namespaces.Response)
+            .GetProperty(SteamConstants.Namespaces.Games)
             .Deserialize<IEnumerable<Game>>() ?? throw new Exception("Failed to deserialize recently played games.");
     }
 }

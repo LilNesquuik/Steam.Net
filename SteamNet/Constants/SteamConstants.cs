@@ -2,7 +2,7 @@
 
 public static class SteamConstants
 {
-    public static class Endpoint
+    public static class Endpoints
     {
         public const string GetPlayerSummaries = "ISteamUser/GetPlayerSummaries/v0002/";
         public const string GetFriendList = "ISteamUser/GetFriendList/v1/";
@@ -19,7 +19,7 @@ public static class SteamConstants
         public const string SteamId = "steamid";
     }
     
-    public static class Namespace
+    public static class Namespaces
     {
         public const string Players = "players";
         public const string Response = "response";
