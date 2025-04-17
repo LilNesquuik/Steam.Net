@@ -8,6 +8,7 @@ public class SteamClient :
     internal readonly string ApiKey;
     internal readonly HttpClient HttpClient;
     
+    public UserService User { get; set; }
     public PlayerService Player { get; set; }
     
     public SteamClient(string apiKey)
@@ -21,6 +22,7 @@ public class SteamClient :
         HttpClient.DefaultRequestHeaders.Add("Accept", "application/json");
         HttpClient.DefaultRequestHeaders.Add("User-Agent", "Steam.Net v1.0");
         
+        User = new UserService(this);
         Player = new PlayerService(this);
     }
     

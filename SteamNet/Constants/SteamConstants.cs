@@ -5,8 +5,11 @@ public static class SteamConstants
     public static class Endpoint
     {
         public const string GetPlayerSummaries = "ISteamUser/GetPlayerSummaries/v0002/";
-        public const string GetOwnedGames = "IPlayerService/GetOwnedGames/v1/";
         public const string GetFriendList = "ISteamUser/GetFriendList/v1/";
+        public const string GetPlayerBans = "ISteamUser/GetPlayerBans/v1/";
+        
+        public const string GetOwnedGames = "IPlayerService/GetOwnedGames/v1/";
+        public const string GetRecentlyPlayedGames = "IPlayerService/GetRecentlyPlayedGames/v1/";
     }
 
     public static class Parameters

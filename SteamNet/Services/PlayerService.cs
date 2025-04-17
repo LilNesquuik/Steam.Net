@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using Steam.Constants;
 using Steam.Models;
 
@@ -11,46 +11,6 @@ public class PlayerService
     public PlayerService(SteamClient client)
     {
         _client = client;
-    }
-    
-    public async Task<Player> GetPlayerSummaryAsync(string steamId)
-    {
-        if (string.IsNullOrWhiteSpace(steamId))
-            throw new ArgumentException("Steam ID cannot be null or empty.", nameof(steamId));
-        
-        string url = $"{SteamConstants.Endpoint.GetPlayerSummaries}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamIds}={steamId}";
-        HttpResponseMessage response = await _client.HttpClient.GetAsync(url);
-        
-        if (!response.IsSuccessStatusCode)
-            throw new Exception($"Failed to get player summaries: {response.ReasonPhrase}");
-
-        using var payload = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
-        
-        return payload.RootElement
-            .GetProperty(SteamConstants.Namespace.Response)
-            .GetProperty(SteamConstants.Namespace.Players)
-            .EnumerateArray()
-            .FirstOrDefault()
-            .Deserialize<Player>() ?? throw new Exception("Failed to deserialize player summaries.");
-    }
-
-    public async Task<IEnumerable<Player>> GetPlayersSummariesAsync(params string[] steamIds)
-    {
-        if (steamIds == null || steamIds.Length == 0)
-            throw new ArgumentException("Steam IDs cannot be null or empty.", nameof(steamIds));
-        
-        string url = $"{SteamConstants.Endpoint.GetPlayerSummaries}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamIds}={string.Join(",", steamIds)}";
-        HttpResponseMessage response = await _client.HttpClient.GetAsync(url);
-        
-        if (!response.IsSuccessStatusCode)
-            throw new Exception($"Failed to get player summaries: {response.ReasonPhrase}");
-
-        using var payload = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
-        
-        return payload.RootElement
-            .GetProperty(SteamConstants.Namespace.Response)
-            .GetProperty(SteamConstants.Namespace.Players)
-            .Deserialize<IEnumerable<Player>>() ?? throw new Exception("Failed to deserialize player summaries.");
     }
     
     public async Task<IEnumerable<Game>> GetOwnedGamesAsync(string steamId)
@@ -72,22 +32,22 @@ public class PlayerService
             .Deserialize<IEnumerable<Game>>() ?? throw new Exception("Failed to deserialize owned games.");
     }
     
-    public async Task<IEnumerable<Friend>> GetFriendListAsync(string steamId)
+    public async Task<IEnumerable<Game>> GetRecentlyPlayedGamesAsync(string steamId)
     {
         if (string.IsNullOrWhiteSpace(steamId))
             throw new ArgumentException("Steam ID cannot be null or empty.", nameof(steamId));
         
-        string url = $"{SteamConstants.Endpoint.GetFriendList}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamId}={steamId}";
+        string url = $"{SteamConstants.Endpoint.GetRecentlyPlayedGames}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamId}={steamId}";
         HttpResponseMessage response = await _client.HttpClient.GetAsync(url);
         
         if (!response.IsSuccessStatusCode)
-            throw new Exception($"Failed to get friend list: {response.ReasonPhrase}");
+            throw new Exception($"Failed to get recently played games: {response.ReasonPhrase}");
 
         using var payload = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
         
         return payload.RootElement
-            .GetProperty(SteamConstants.Namespace.FriendList)
-            .GetProperty(SteamConstants.Namespace.Friends)
-            .Deserialize<IEnumerable<Friend>>() ?? throw new Exception("Failed to deserialize friend list.");
+            .GetProperty(SteamConstants.Namespace.Response)
+            .GetProperty(SteamConstants.Namespace.Games)
+            .Deserialize<IEnumerable<Game>>() ?? throw new Exception("Failed to deserialize recently played games.");
     }
 }
