@@ -34,9 +34,9 @@ public class UserService
             .Deserialize<Player>() ?? throw new Exception("Failed to deserialize player summaries.");
     }
 
-    public async Task<IEnumerable<Player>> GetPlayersSummariesAsync(params string[] steamIds)
+    public async Task<IEnumerable<Player>> GetPlayersSummariesAsync(string[] steamIds)
     {
-        if (steamIds == null || steamIds.Length == 0)
+        if (steamIds == null || !steamIds.Any())
             throw new ArgumentException("Steam IDs cannot be null or empty.", nameof(steamIds));
         
         string url = $"{SteamConstants.Endpoints.GetPlayerSummaries}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamIds}={string.Join(",", steamIds)}";
@@ -72,9 +72,9 @@ public class UserService
             .Deserialize<IEnumerable<Friend>>() ?? throw new Exception("Failed to deserialize friend list.");
     }
     
-    public async Task<IEnumerable<Ban>> GetPlayersBansAsync(params string[] steamIds)
+    public async Task<IEnumerable<Ban>> GetPlayersBansAsync(string[] steamIds)
     {
-        if (steamIds == null || steamIds.Length == 0)
+        if (steamIds == null || !steamIds.Any())
             throw new ArgumentException("Steam IDs cannot be null or empty.", nameof(steamIds));
         
         string url = $"{SteamConstants.Endpoints.GetPlayerBans}?{SteamConstants.Parameters.Key}={_client.ApiKey}&{SteamConstants.Parameters.SteamIds}={string.Join(",", steamIds)}";
