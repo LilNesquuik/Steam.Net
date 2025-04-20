@@ -13,6 +13,21 @@ public class PlayerService
         _client = client;
     }
     
+    /// <summary>
+    /// Retrieves the list of games owned by a specific Steam user.
+    /// </summary>
+    /// <param name="steamId">
+    /// The unique Steam ID of the user whose owned games are to be retrieved.
+    /// </param>
+    /// <returns>
+    /// An <see cref="IEnumerable{T}"/> of <see cref="Game"/> objects representing the games owned by the user.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// Thrown when the provided <paramref name="steamId"/> is null, empty, or consists only of whitespace.
+    /// </exception>
+    /// <exception cref="Exception">
+    /// Thrown when the request to the Steam API fails or the response cannot be deserialized.
+    /// </exception>
     public async Task<IEnumerable<Game>> GetOwnedGamesAsync(string steamId)
     {
         if (string.IsNullOrWhiteSpace(steamId))
@@ -32,6 +47,21 @@ public class PlayerService
             .Deserialize<IEnumerable<Game>>() ?? throw new Exception("Failed to deserialize owned games.");
     }
     
+    /// <summary>
+    /// Retrieves the list of games recently played by a specific Steam user.
+    /// </summary>
+    /// <param name="steamId">
+    /// The unique Steam ID of the user whose recently played games are to be retrieved.
+    /// </param>
+    /// <returns>
+    /// An <see cref="IEnumerable{T}"/> of <see cref="Game"/> objects representing the games recently played by the user.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// Thrown when the provided <paramref name="steamId"/> is null, empty, or consists only of whitespace.
+    /// </exception>
+    /// <exception cref="Exception">
+    /// Thrown when the request to the Steam API fails or the response cannot be deserialized.
+    /// </exception>
     public async Task<IEnumerable<Game>> GetRecentlyPlayedGamesAsync(string steamId)
     {
         if (string.IsNullOrWhiteSpace(steamId))
