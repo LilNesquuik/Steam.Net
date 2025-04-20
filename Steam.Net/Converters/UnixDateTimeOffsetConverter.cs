@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Steam.Converters;
 
+// i let it public if someone wants to use it outside of the library
 public class UnixDateTimeOffsetConverter : JsonConverter<DateTimeOffset>
 {
     public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
