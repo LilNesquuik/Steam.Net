@@ -17,6 +17,7 @@ public static class SteamConstants
         public const string Key = "key";
         public const string SteamIds = "steamids";
         public const string SteamId = "steamid";
+        public const string AppId = "appid";
     }
     
     public static class Namespaces
