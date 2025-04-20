@@ -3,6 +3,9 @@ using Steam.Converters;
 
 namespace Steam.Models;
 
+/// <summary>
+/// Represents a game owned by a Steam user.
+/// </summary>
 public class Game
 {
     [JsonPropertyName("appid")]

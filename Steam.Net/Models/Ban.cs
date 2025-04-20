@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace Steam.Models;
 
+/// <summary>
+/// Represents the ban information of a Steam user.
+/// </summary>
 public class Ban
 {
     [JsonPropertyName("SteamId")]

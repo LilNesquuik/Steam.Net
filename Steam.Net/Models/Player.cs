@@ -3,6 +3,9 @@ using Steam.Converters;
 
 namespace Steam.Models;
 
+/// <summary>
+/// Represents a Steam user.
+/// </summary>
 public class Player
 {
     [JsonPropertyName("steamid")]
